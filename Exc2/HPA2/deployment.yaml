@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaletestapp-deployment
+  namespace: monitoring
+  labels:
+    app: scaletestapp
+spec:
+  replicas: 1 # Количество реплик Pod'ов
+  selector:
+    matchLabels:
+      app: scaletestapp
+  template:
+    metadata:
+      labels:
+        app: scaletestapp
+    spec:
+      containers:
+        - name: scaletestapp-container
+          image: shestera/scaletestapp:latest # Указываем Docker-образ
+          ports:
+            - containerPort: 8080 # Приложение внутри контейнера слушает порт 8080
+          resources:
+            requests:
+              memory: "50Mi" # Минимальное количество памяти
+            limits:
+              memory: "100Mi" # Максимальное количество памяти

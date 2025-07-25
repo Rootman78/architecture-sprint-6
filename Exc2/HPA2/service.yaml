@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: scaletestapp-service
+  namespace: monitoring
+  labels:
+    app: scaletestapp
+spec:
+  selector:
+    app: scaletestapp # Соответствует метке Pod'ов из Deployment
+  ports:
+    - name: http-metrics
+      protocol: TCP
+      port: 8080 # Внешний порт для доступа к сервису
+      targetPort: 8080 # Перенаправление на порт контейнера
+  type: NodePort
